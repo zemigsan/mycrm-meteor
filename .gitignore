@@ -41,3 +41,8 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+.meteor/.finished-upgraders
+.meteor/.id
+.meteor/packages
+.meteor/versions
+.meteor/platforms

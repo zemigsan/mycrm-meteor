@@ -33,7 +33,7 @@ Template.body.helpers({
   }
 });
 
-Template.body.events({
+Template.home.events({
   "submit .new-project": function (event) {
     // This function is called when the new task form is submitted
 
@@ -55,10 +55,6 @@ Template.body.events({
   },
   "change .hide-completed input": function (event) {
     Session.set("hideCompleted", event.target.checked);
-  },
-  "click .toggle-private": function () {
-    //Meteor.call("setPrivate", this._id, !this.private);
-    Meteor.call("updateCalendar");
   }
 });
 
@@ -69,5 +65,29 @@ Template.project.events({
   },
   "click .delete": function () {
     Meteor.call("deleteProject", this._id);
+  }
+});
+
+
+Template.logWork.events({
+  "submit .log-work": function (event) {
+    // This function is called when the new task form is submitted
+
+    // Prevent default form submit
+    event.preventDefault();
+    var projectId= this._id;
+    var hoursWorked = this.hoursWorked;
+    var percCompletion= parseInt(event.target.percCompletion.value);
+    var hours = parseInt(event.target.hours.value);
+
+    Meteor.call("logWork", projectId, percCompletion, hours, hoursWorked);
+    Meteor.call("updateCalendar");
+
+
+    // Clear form
+    event.target.hours.value = "";
+
+
+    //return false;
   }
 });

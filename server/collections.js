@@ -23,21 +23,14 @@ Meteor.methods({
       var hoursLeft=project.duration;
       while((hoursLeft+currentDayHours)>8) {
         var hours = 8-currentDayHours;
-        currentDate.projects.push(  {"name": project.name, "hours": hours});
-        /*if(currentDayHours = 0) {
+        currentDate.projects.push(  {"_id":project._id, "name": project.name, "hours": hours});
+        /*
         Calendars.update({user: this.userId},
         { $push: { days: {"date" : currentDate,
         "projects" : [
         {"name": project.name, "hours": hours}]
         }}});
-        } else {
-        //if already exists
-        Calendars.update({"user": this.userId, "days.date" : currentDate },
-        { "$push" : { "days.$.projects" :
-        {"name": project.name,"hours": hours}
-        }});
-        }*/
-
+        */
         // clears the day
         hoursLeft = hoursLeft - hours;
         currentDayHours =0;
@@ -46,22 +39,8 @@ Meteor.methods({
         "projects" : [] };
       }
 
-      /*if(currentDayHours = 0) {
-      Calendars.update({user: this.userId},
-      { $push: { days: {"date" : currentDate,
-      "projects" : [
-      {"name": project.name, "hours": hoursLeft}]
-      }}});
-      currentDayHours = hoursLeft;
-      } else {
-      //if already exists
-      Calendars.update({"user": this.userId, "days.date" : currentDate },
-      { "$push" : { "days.$.projects" :
-      {"name": project.name,"hours": hoursLeft}
-      }});
-      }*/
       if (hoursLeft > 0) {
-        currentDate.projects.push(  {"name": project.name, "hours": hoursLeft});
+        currentDate.projects.push(  {"_id":project._id,"name": project.name, "hours": hoursLeft});
         currentDayHours = currentDayHours + hoursLeft;
       }
 
@@ -81,5 +60,16 @@ Meteor.methods({
     Calendars.insert(document);
 
 
+  },
+  logWork: function ( projectId, percCompletion, hours, hoursWorked) {
+    Projects.update({_id: projectId},{
+      $set:{"percCompletion" : percCompletion,
+      "duration" : (hours+hoursWorked)/(percCompletion/100)},
+      $push: { logs: {"time" : new Date(), "percCompletion" : parseInt(percCompletion),
+      "hours" : hours}},
+      //
+      $inc:{"hoursWorked" : parseInt(hours)}
+    });
   }
+
 });

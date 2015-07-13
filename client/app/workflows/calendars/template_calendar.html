@@ -1,0 +1,9 @@
+<!-- replace the existing task template with this code -->
+<template name="calendarday">
+  <li class="">
+    <span class="text"><strong>{{formatDate date}}</strong></span>
+    {{#each projects}}
+    <p> <strong><a href="/logwork/{{_id}}">{{name}}</a></strong> ({{hours}} hours)</p>
+    {{/each}}
+  </li>
+  </template>

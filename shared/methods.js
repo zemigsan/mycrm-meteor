@@ -16,7 +16,10 @@ Meteor.methods({
       deadline: new Date(deadline),
       createdAt:new Date(),
       owner: Meteor.userId(),
-      username: Meteor.user().username
+      username: Meteor.user().username,
+      percCompletion: 0,
+      hoursWorked: 0,
+      initialDuration: parseInt(duration) //to save the original estimatation
     });
   },
   deleteProject: function (projectId) {

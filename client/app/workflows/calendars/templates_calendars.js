@@ -1,7 +1,7 @@
 // This code only runs on the client
 Template.home.helpers({
   calendars: function() {
-    return Calendars.findOne().days;
+    return (Calendars.findOne().days || null);
   }
 });
 

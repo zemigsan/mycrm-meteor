@@ -4,6 +4,9 @@
 Meteor.publish("calendars", function () {
   return Calendars.find({user: this.userId});
 });
+Meteor.publish("blockedtimes", function () {
+  return Blockedtimes.find({user: this.userId});
+});
 Meteor.publish("projects", function () {
   return Projects.find({
 

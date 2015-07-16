@@ -1,9 +1,14 @@
 <!-- replace the existing task template with this code -->
 <template name="calendarday">
-  <li class="">
-    <span class="text"><strong>{{formatDate date}}</strong></span>
+  <div class="row">
+    <div class="col-md-8">
+      <div class="list-group">
+        <a href="#" class="list-group-item active"><h4>{{formatDate date}}</h4></a>
+
     {{#each projects}}
-    <p> <strong><a href="/logwork/{{_id}}">{{name}}</a></strong> ({{hours}} hours)</p>
+    <a href="/logwork/{{_id}}"  class="list-group-item">{{name}} ({{hours}} hours)</a>
     {{/each}}
-  </li>
+    </div>
+  </div>
+  </div>
   </template>

@@ -1,0 +1,16 @@
+<!-- replace the existing task template with this code -->
+<template name="calendar">
+  <header>
+    <h1>Project List</h1>
+
+  </header>
+
+  <ul>
+    {{#each calendars}} {{> calendarday}} {{/each}}
+  </ul>
+
+
+  <button class="update-calendar">
+    Update
+  </button>
+  </template>
